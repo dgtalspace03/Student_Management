@@ -36,6 +36,7 @@ Route::prefix('admin')
         Route::get('/course', 'ShowCourse')->name('admin-course');
         Route::view('/course/create','admin.course-create')->name('admin-course-create');
         Route::get('/course/{id}/teachers','ShowCourseTeacher')->name('admin-course-teacher');
+        Route::get('/course/{id}/lesson',"CourseLesson")->name("admin-course-lesson");
         Route::get('/teacher','ShowTeacher')->name('admin-teacher');
         Route::view('/teacher/create','admin.create-teacher')->name('admin-teacher-create');
 

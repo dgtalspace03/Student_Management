@@ -16,4 +16,7 @@ class AdminController extends Controller
     public function ShowTeacher(){
         return view('admin.teacher');
     }
+    public function CourseLesson(){
+        return view('admin.course-lesson');
+    }
 }
