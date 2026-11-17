@@ -1,4 +1,5 @@
 @props([
+    'slug',
     'img',
     'title',
     'description',
@@ -31,7 +32,7 @@
             <span class="fs-5 fw-bold {{ $price > 0 ? 'text-dark' : 'text-success' }}">
                 {{ $price > 0 ? '$' . number_format($price, 2) : 'Free' }}
             </span>
-            <a href="#" class="btn btn-primary btn-sm">Enroll now</a>
+            <a href="{{ route('course-details',$slug) }}" class="btn btn-primary btn-sm">View Details</a>
         </div>
     </div>
 </div>
