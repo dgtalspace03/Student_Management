@@ -12,7 +12,7 @@
 
     {{-- Image + category badge --}}
     <div class="position-relative">
-        <img src="{{ $img }}" class="card-img-top" alt="{{ $title }}">
+        <img src="{{ $img }}" class="card-img-top title" alt="{{ $title }}">
         <span class="badge text-bg-primary position-absolute top-0 start-0 m-2">
             {{ $category }}
         </span>
@@ -20,7 +20,7 @@
 
     <div class="card-body d-flex flex-column" style="height: 200px">
         <h5 class="card-title">{{ $title }}</h5>
-        <p class="card-text text-secondary small">{{ $description }}</p>
+        <p class="card-text text-secondary small description">{{ $description }}</p>
 
         {{-- Enrolled students --}}
         <div class="small text-secondary mb-3">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -11,19 +12,13 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'setLocale'
-])->group(function () {
-    Route::view('/', 'welcome')->name('home');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('/course/{slug}', function ($slug) {
-        $arr = array_filter(config('constant.courses'), fn($st) => $st['slug'] === $slug);
-        if (count($arr) == 0) abort(404, "course not found");
+    'setLocale',
+    'student'
+])->controller(StudentController::class)
+->group(function () {
+    Route::view('/', 'index')->name('home');
 
-        $course = reset($arr);
-        return view('course-details', compact('course'));
-    })->name('course-details');
+    Route::get('/course/{slug}', 'CourseDetails')->name('course-details');
 });
 
 Route::prefix('admin')
@@ -34,11 +29,15 @@ Route::prefix('admin')
             return redirect()->route('admin-course');
         });
         Route::get('/course', 'ShowCourse')->name('admin-course');
-        Route::view('/course/create','admin.course-create')->name('admin-course-create');
+        Route::get('/course/create','CreateCoursePage')->name('admin-course-create');
+        Route::post('/course/create','CreateCourse')->name('admin-course-create-post');
         Route::get('/course/{id}/teachers','ShowCourseTeacher')->name('admin-course-teacher');
-        Route::get('/course/{id}/lesson',"CourseLesson")->name("admin-course-lesson");
+        Route::get('/course/{slug}/lesson',"CourseLesson")->name("admin-course-lesson");
+        Route::post('/course/{id}/lesson/create','CreateLesson')->name("admin-course-lesson-create");
         Route::get('/teacher','ShowTeacher')->name('admin-teacher');
         Route::view('/teacher/create','admin.create-teacher')->name('admin-teacher-create');
+        Route::get('/categories','ShowCategories')->name('admin-categories');
+        Route::post('/categories/create','CreateCategories')->name('admin-categories-create');
 
     });
 Route::prefix('teacher')

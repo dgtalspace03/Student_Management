@@ -1,15 +1,14 @@
 <x-layouts::app>
-     <div class="container py-5">
+    <div class="container py-5">
         <div class="row g-4">
 
             <!-- Left: main content -->
             <div class="col-lg-8">
                 <!-- Thumbnail -->
-                <img src="{{ $course['img'] }}"
-                    class="img-fluid rounded mb-4 w-100" alt="Course thumbnail">
+                <img src="/storage/{{ $course->thumbnail }}" class="img-fluid rounded mb-4 w-100" alt="Course thumbnail">
 
                 <!-- Title & description -->
-                <h1 class="fw-bold mb-3">{{$course['title']}}</h1>
+                <h1 class="fw-bold mb-3">{{ $course->title }}</h1>
                 <p class="text-muted">
                     {{ $course['description'] }}
                 </p>
@@ -17,26 +16,16 @@
                 <!-- Curriculum: one lesson = one database row -->
                 <h4 class="mt-5 mb-3">Curriculum</h4>
                 <ol class="list-group list-group-numbered">
-                    <!-- Repeat this <li> for each lesson (see the PHP loop in the notes) -->
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">How the web works</span><span class="text-muted">20 min</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">HTML structure and forms</span><span class="text-muted">45 min</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">CSS layout with Flexbox</span><span class="text-muted">60 min</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">JavaScript basics</span><span class="text-muted">50 min</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">Building a CRUD app</span><span class="text-muted">90 min</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="me-auto ms-2">Deploying to a live server</span><span class="text-muted">45
-                            min</span>
-                    </li>
+
+                    @forelse ($course->lessons as $lesson)
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="me-auto ms-2">{{$lesson->title}}</span>
+                            <span class="text-muted">{{ $lesson->duration }} min</span>
+                        </li>
+                    @empty
+                     <div class="card-body text-center text-muted py-4">No lessons added yet.</div>
+                    @endforelse
+
                 </ol>
             </div>
 
@@ -44,13 +33,14 @@
             <div class="col-lg-4">
                 <div class="card shadow-sm sticky-lg-top" style="top: 1rem;">
                     <div class="card-body">
-                        <h2 class="fw-bold text-primary mb-0">${{ $course['price'] }}<small
-                                class="text-muted text-decoration-line-through fs-6">${{$course['price']+20}}</small></h2>
+                        <h2 class="fw-bold text-primary mb-0">${{ $course->price }}<small
+                                class="text-muted text-decoration-line-through fs-6">${{ $course->original_price }}</small>
+                        </h2>
                         <button class="btn btn-primary w-100 my-3">Enroll now</button>
 
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted">Students enrolled</span><strong>{{$course['enrolled']}}</strong>
+                                <span class="text-muted">Students enrolled</span><strong>{{ 0 }}</strong>
                             </li>
                             <li class="d-flex justify-content-between py-2 border-bottom">
                                 <span class="text-muted">Duration</span><strong>12 hours</strong>

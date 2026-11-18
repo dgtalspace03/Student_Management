@@ -3,30 +3,26 @@
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
-
+use App\Models\Categories;
+use App\Models\Course;
 new class extends Component
 {
     public string $search = '';
     public string $category = 'all';
 
     #[Computed]
-    public function categories(): array
+    public function categories()
     {
-        return collect(config('constant.courses'))
-            ->pluck('category')->unique()->sort()->values()->all();
+        $category= Categories::all();
+        
+        return $category;
     }
 
     #[Computed]
     public function courses()
     {
-        return collect(config('constant.courses'))
-            ->when($this->category !== 'all',
-                fn ($c) => $c->where('category', $this->category))
-            ->when($this->search !== '',
-                fn ($c) => $c->filter(
-                    fn ($course) => Str::contains($course['title'], $this->search, ignoreCase: true)
-                ))
-            ->values();
+        $all_course=Course::all();
+        return $all_course;
     }
 };
 ?>
@@ -41,7 +37,7 @@ new class extends Component
             <select class="form-control" wire:model.live="category">
                 <option value="all">All</option>
                 @foreach ($this->categories as $cat)
-                    <option value="{{ $cat }}">{{ $cat }}</option>
+                    <option value="{{ $cat->slug }}">{{ $cat->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -50,14 +46,15 @@ new class extends Component
     <div class="container d-flex align-items-center gap-3 flex-wrap mt-3">
         @forelse ($this->courses as $course)
             <div wire:key="{{ $course['slug'] }}">
+                
                 <x-app.course-card
-                    slug="{{ $course['slug'] }}"
-                    title="{{ $course['title'] }}"
-                    description="{{ $course['description'] }}"
-                    img="{{ $course['img'] }}"
-                    price="{{ $course['price'] }}"
-                    category="{{ $course['category'] }}"
-                    enrolled="{{ $course['enrolled'] }}" />
+                    slug="{{ $course->slug }}"
+                    title="{{ $course->title }}"
+                    description="{{ $course->description}}"
+                    img="/storage/{{ $course->thumbnail}}"
+                    price="{{ $course->price }}"
+                    category="{{ $course->category->name }}"
+                    enrolled="{{ 0 }}" />
             </div>
         @empty
             <p class="text-muted">No courses found.</p>

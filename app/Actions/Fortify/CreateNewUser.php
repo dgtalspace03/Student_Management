@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Mail\NewUser;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -27,11 +28,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
-        
+        $user_role=Roles::where('slug','student')->firstOrFail();
        $user= User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'role_id' => $user_role->id
         ]);
         Mail::to($user->email)->queue(new NewUser($user->name));
         return $user;

@@ -53,6 +53,10 @@
                 <a class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}" href="/">♙ Members
                     &amp; roles</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin-categories*') ? 'active' : '' }}" href="{{ route('admin-categories') }}">
+                     Categories</a>
+            </li>
         </ul>
         {{ $slot }}
     </div>

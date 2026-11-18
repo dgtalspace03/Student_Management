@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\admin;
 use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\Student;
 use App\Http\Middleware\teacher;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'setLocale'=>SetLanguage::class,
             'admin' => admin::class,
-            'teacher'=>teacher::class
+            'teacher'=>teacher::class,
+            'student' => Student::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
