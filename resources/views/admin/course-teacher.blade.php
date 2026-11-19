@@ -5,11 +5,10 @@
 
         <!-- Course summary -->
         <div class="d-flex align-items-center gap-3 mt-3 mb-4">
-            <img src="https://placehold.co/600x400/dc3545/ffffff?text=Laravel" alt="" width="96"
-                class="rounded">
+            <img src="/storage/{{ $course->thumbnail }}" alt="" width="96" class="rounded">
             <div>
-                <h2 class="h2 mb-1">Laravel for Beginners</h2>
-                <span class="badge text-bg-primary">Backend</span>
+                <h2 class="h2 mb-1">{{ $course->title }}</h2>
+                <span class="badge text-bg-primary">{{ $course->category->name }}</span>
                 <span class="text-muted ms-2">8,250 students enrolled</span>
             </div>
         </div>
@@ -22,53 +21,50 @@
                     <div class="card-header bg-white fw-semibold">Assigned teachers</div>
                     <ul class="list-group list-group-flush">
 
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                    style="width:40px;height:40px;">AR</div>
-                                <div>
-                                    <div>Ayesha Rahman</div>
-                                    <small class="text-muted">ayesha@example.com</small>
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                data-bs-target="#removeModal" data-name="Ayesha Rahman">Remove</button>
-                        </li>
+                        @forelse ($course->all_assigned_course as $assign)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img style="height: 40px; width: 40px;" class=" rounded-circle object-cover"
+                                        src="{{ $assign->teacher->profile_photo_url }}"
+                                        alt="{{ $assign->teacher->name }}" />
 
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                    style="width:40px;height:40px;">TH</div>
-                                <div>
-                                    <div>Tanvir Hossain</div>
-                                    <small class="text-muted">tanvir@example.com</small>
+                                    <div>
+                                        <div>{{ $assign->teacher->name }}</div>
+                                        <small class="text-muted">{{ $assign->teacher->email }}</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                data-bs-target="#removeModal" data-name="Tanvir Hossain">Remove</button>
-                        </li>
+                                <form
+                                    action="{{ route('admin-course-teacher-remove', [$assign->course_id, $assign->teacher_id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                            </li>
 
-                        <!-- Empty state: show this when no teacher is assigned -->
-                        <!--
-          <li class="list-group-item text-center text-muted py-4">No teacher assigned yet.</li>
-          -->
+                        @empty
+                            <li class="list-group-item text-center text-muted py-4">No teacher assigned yet.</li>
+                        @endforelse
+
 
                     </ul>
                 </div>
             </div>
 
-            <!-- Assign new teacher -->
+
             <div class="col-lg-5">
-                <!-- Dummy: Assign just reloads this page -->
-                <form action="admin-course-teachers.html" class="card shadow-sm">
+
+                <form action="{{ route('admin-course-teacher-assign', $course->id) }}" class="card shadow-sm"
+                    method="POST">
+                    @csrf
                     <div class="card-header bg-white fw-semibold">Assign new teacher</div>
                     <div class="card-body">
                         <label class="form-label" for="teacher">Teacher</label>
-                        <select id="teacher" class="form-select" required>
+                        <select id="teacher" class="form-select" required name="teacher_id">
                             <option value="" selected disabled>Select a teacher</option>
-                            <option>Nusrat Jahan</option>
-                            <option>Imran Khan</option>
-                            <option>Farhana Akter</option>
+                            @foreach ($unassigned_teacher as $teacher)
+                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                            @endforeach
+
                         </select>
                         <div class="form-text">Teachers already assigned to this course are not listed.</div>
                     </div>

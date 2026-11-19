@@ -19,11 +19,11 @@
 
                     @forelse ($course->lessons as $lesson)
                         <li class="list-group-item d-flex justify-content-between">
-                            <span class="me-auto ms-2">{{$lesson->title}}</span>
+                            <span class="me-auto ms-2">{{ $lesson->title }}</span>
                             <span class="text-muted">{{ $lesson->duration }} min</span>
                         </li>
                     @empty
-                     <div class="card-body text-center text-muted py-4">No lessons added yet.</div>
+                        <div class="card-body text-center text-muted py-4">No lessons added yet.</div>
                     @endforelse
 
                 </ol>
@@ -43,7 +43,14 @@
                                 <span class="text-muted">Students enrolled</span><strong>{{ 0 }}</strong>
                             </li>
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted">Duration</span><strong>12 hours</strong>
+                                <span class="text-muted">Duration</span><strong>
+                                    @if ($hour > 0)
+                                        {{ $hour }} hours
+                                    @endif
+                                    @if ($minute > 0)
+                                        {{ $minute }} minutes
+                                    @endif
+                                </strong>
                             </li>
                             <li class="d-flex justify-content-between py-2 border-bottom">
                                 <span class="text-muted">Level</span><strong>Beginner</strong>
@@ -51,18 +58,28 @@
                         </ul>
 
                         <!-- Teacher -->
-                        <div class="d-flex align-items-center mt-3">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
-                                style="width:48px;height:48px;">AR</div>
-                            <div>
-                                <div class="fw-semibold">Ayesha Rahman</div>
-                                <small class="text-muted">Senior web developer and instructor</small>
-                            </div>
+                        <div>
+                            <h2 class="h3 mt-2">Teachers</h2>
+                            @forelse ($course->all_assigned_course as $assaign)
+                                <div class="d-flex align-items-center mt-3 gap-2">
+                                    <img style="height: 48px; width: 48px;" class=" rounded-circle object-cover"
+                                        src="{{ $assaign->teacher->profile_photo_url }}"
+                                        alt="{{ $assaign->teacher->name }}" />
+                                    <div>
+                                        <div class="fw-semibold">{{ $assaign->teacher->name }}</div>
+                                        <small class="text-muted">{{ $assaign->teacher->email }}</small>
+                                    </div>
+                                </div>
                         </div>
+                    @empty
+                        <p class="text-center">No Teacher Has been assigned to the course.</p>
+                        @endforelse
+
                     </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
     </div>
 </x-layouts::app>

@@ -32,7 +32,7 @@
                                 <td>{{ $course->category->name }}</td>
                                 <td>${{$course->price}}</td>
                                 <td>12,480</td>
-                                <td><a class="btn btn-secondary" href="{{ route('admin-course-teacher', 3) }}">Manage</a>
+                                <td><a class="btn btn-secondary" href="{{ route('admin-course-teacher', $course->slug) }}">Manage</a>
                                 <td><a class="btn btn-secondary" href="{{ route('admin-course-lesson', $course->slug) }}">Manage</a>
                                 </td>
                                 <td class="text-end">

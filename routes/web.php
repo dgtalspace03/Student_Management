@@ -31,13 +31,17 @@ Route::prefix('admin')
         Route::get('/course', 'ShowCourse')->name('admin-course');
         Route::get('/course/create','CreateCoursePage')->name('admin-course-create');
         Route::post('/course/create','CreateCourse')->name('admin-course-create-post');
-        Route::get('/course/{id}/teachers','ShowCourseTeacher')->name('admin-course-teacher');
+        Route::get('/course/{slug}/teachers','ShowCourseTeacher')->name('admin-course-teacher');
+        Route::post('/course/{course_id}/teacher/assign','AssaignCourseTeacher')->name('admin-course-teacher-assign');
+        Route::post('/course/{course_id}/teacher/remove/{teacher_id}','RemoveCourseTeacher')->name('admin-course-teacher-remove');
         Route::get('/course/{slug}/lesson',"CourseLesson")->name("admin-course-lesson");
         Route::post('/course/{id}/lesson/create','CreateLesson')->name("admin-course-lesson-create");
         Route::get('/teacher','ShowTeacher')->name('admin-teacher');
         Route::view('/teacher/create','admin.create-teacher')->name('admin-teacher-create');
+        Route::post('/teacher/create','CreateTeacher')->name('admin-teacher-create-post');
         Route::get('/categories','ShowCategories')->name('admin-categories');
         Route::post('/categories/create','CreateCategories')->name('admin-categories-create');
+        Route::post('/categories/delete/{id}','DeleteCategories')->name('admin-categories-delete');
 
     });
 Route::prefix('teacher')
@@ -45,7 +49,7 @@ Route::prefix('teacher')
         ->controller(TeacherController::class)
         ->group(function(){
         Route::get('/','ShowAssignedCourses')->name('teacher');
-        Route::get('/course/{id}','ShowCourseDetails')->name('teacher-course-details');
+        Route::get('/course/{slug}','ShowCourseDetails')->name('teacher-course-details');
         });
 Route::post('/lang/{la}', function ($la) {
     if ($la == 'bn' || $la == 'en') {

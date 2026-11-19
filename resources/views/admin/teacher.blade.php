@@ -21,81 +21,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style="width:40px;height:40px;">AR</div>
-                                    <span>Ayesha Rahman</span>
-                                </div>
-                            </td>
-                            <td>ayesha@example.com</td>
-                            <td>12 Sep 2026</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="Ayesha Rahman">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style="width:40px;height:40px;">TH</div>
-                                    <span>Tanvir Hossain</span>
-                                </div>
-                            </td>
-                            <td>tanvir@example.com</td>
-                            <td>28 Sep 2026</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="Tanvir Hossain">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style="width:40px;height:40px;">NJ</div>
-                                    <span>Nusrat Jahan</span>
-                                </div>
-                            </td>
-                            <td>nusrat@example.com</td>
-                            <td>03 Oct 2026</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="Nusrat Jahan">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style="width:40px;height:40px;">IK</div>
-                                    <span>Imran Khan</span>
-                                </div>
-                            </td>
-                            <td>imran@example.com</td>
-                            <td>19 Oct 2026</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="Imran Khan">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style="width:40px;height:40px;">FA</div>
-                                    <span>Farhana Akter</span>
-                                </div>
-                            </td>
-                            <td>farhana@example.com</td>
-                            <td>05 Nov 2026</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="Farhana Akter">Delete</button>
-                            </td>
-                        </tr>
+
+                        @forelse ($all_teachers as $teacher)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img style="height: 40px; width: 40px;" class=" rounded-circle object-cover" src="{{$teacher->profile_photo_url }}" alt="{{ $teacher->name }}" />
+                                        
+                                        <span>{{$teacher->name}}</span>
+                                    </div>
+                                </td>
+                                <td>{{$teacher->email}}</td>
+                                <td>{{$teacher->created_at->format('d M Y')}}</td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal" data-name="Ayesha Rahman">Delete</button>
+                                </td>
+                            </tr>
+                        @empty
+                        <div>
+                            No Teacher Found.
+                        </div>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

@@ -20,7 +20,7 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
-    public function create(array $input): User
+    public function create(array $input,$role='student'): User
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -28,7 +28,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
-        $user_role=Roles::where('slug','student')->firstOrFail();
+        $user_role=Roles::where('slug',$role)->firstOrFail();
        $user= User::create([
             'name' => $input['name'],
             'email' => $input['email'],

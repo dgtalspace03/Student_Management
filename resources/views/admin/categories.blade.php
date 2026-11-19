@@ -35,13 +35,13 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{ $category->name }}</td>
                                         <td class="text-muted">{{ $category->slug }}</td>
-                                        <td><span class="badge text-bg-secondary">3 courses</span></td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-name="Web Development">Edit</button>
-                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal" data-name="Web Development"
-                                                data-count="3">Delete</button>
+                                        <td><span class="badge text-bg-secondary">{{ count($category->courses) }} courses</span></td>
+                                        <td class="text-end d-flex align-items-center justify-content-end gap-2">
+                                            <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                            <form action="{{ route('admin-categories-delete',$category->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

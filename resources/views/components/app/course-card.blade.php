@@ -19,7 +19,7 @@
     </div>
 
     <div class="card-body d-flex flex-column" style="height: 200px">
-        <h5 class="card-title">{{ $title }}</h5>
+        <h5 class="card-title text-truncate">{{ $title }}</h5>
         <p class="card-text text-secondary small description">{{ $description }}</p>
 
         {{-- Enrolled students --}}

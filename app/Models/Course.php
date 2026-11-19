@@ -25,4 +25,7 @@ class Course extends Model
     public function lessons():HasMany{
         return $this->hasMany(Lesson::class,'course_id');
     }
+    public function all_assigned_course():HasMany{
+        return $this->hasMany(CourseTeacherAssignment::class,'course_id');
+    }
 }
