@@ -34,8 +34,12 @@
                                 <td>{{$teacher->email}}</td>
                                 <td>{{$teacher->created_at->format('d M Y')}}</td>
                                 <td class="text-end">
-                                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal" data-name="Ayesha Rahman">Delete</button>
+                                    <form action="{{ route('admin-teacher-delete',$teacher->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
+
+
+                                    </form>
                                 </td>
                             </tr>
                         @empty

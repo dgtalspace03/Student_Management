@@ -53,7 +53,7 @@
                                 </strong>
                             </li>
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted">Level</span><strong>Beginner</strong>
+                                <span class="text-muted">Level</span><strong>{{$course->level}}</strong>
                             </li>
                         </ul>
 

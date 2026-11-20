@@ -36,7 +36,7 @@
                                 <td><a class="btn btn-secondary" href="{{ route('admin-course-lesson', $course->slug) }}">Manage</a>
                                 </td>
                                 <td class="text-end">
-                                    <button class="btn btn-sm btn-outline-primary" >Edit</button>
+                                    <a  href="{{ route('admin-course-edit',$course->slug) }}" class="btn btn-sm btn-outline-primary" >Edit</a>
                                     <button class="btn btn-sm btn-outline-danger" >Delete</button>
                                 </td>
                             </tr>

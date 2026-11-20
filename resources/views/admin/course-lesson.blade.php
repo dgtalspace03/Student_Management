@@ -7,8 +7,7 @@
 
         <!-- Course summary -->
         <div class="d-flex align-items-center gap-3 mt-3 mb-4">
-            <img src="/storage/{{ $course->thumbnail }}" alt="" width="96"
-                class="rounded">
+            <img src="/storage/{{ $course->thumbnail }}" alt="" width="96" class="rounded">
             <div>
                 <h2 class="h2 mb-1">{{ $course->title }}</h2>
                 <span class="badge text-bg-primary">{{ $course->category->name }}</span>
@@ -24,28 +23,66 @@
                     <div class="card-header bg-white fw-semibold">Lessons</div>
                     <ol class="list-group list-group-flush list-group-numbered">
 
-                        @forelse ($course->lessons as $lesson)
+                       
+                        @forelse ($course->lessons as $index => $lesson)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="me-auto ms-2">{{$lesson->title}}</span>
-                                <span class="text-muted me-3">{{ $lesson->duration }} min</span>
-                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#removeModal" data-name="Introduction and setup">Remove</button>
+
+                                <span class="me-auto ms-2">
+                                    {{ $lesson->title }}
+                                </span>
+
+                                <span class="text-muted me-3">
+                                    {{ $lesson->duration }} min
+                                </span>
+
+                                <div class="d-flex gap-1">
+
+                                  
+                                    <form action="{{ route('admin-course-lesson-up', [$course->id,$lesson->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                            {{ $index === 0 ? 'disabled' : '' }}>
+                                            <i class="bi bi-arrow-up"></i>
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('admin-course-lesson-down',  [$course->id,$lesson->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                            {{ $index === $course->lessons->count() - 1 ? 'disabled' : '' }}>
+                                            <i class="bi bi-arrow-down"></i>
+                                        </button>
+                                    </form>
+
+                                    {{-- Remove --}}
+                                   <form action="{{ route('admin-course-lesson-delete',$lesson->id) }}" method="POST">
+                                    @csrf
+                                     <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Remove
+                                    </button>
+                                   </form>
+
+                                </div>
                             </li>
                         @empty
-                            <div class="card-body text-center text-muted py-4">No lessons added yet.</div>
+                            <div class="card-body text-center text-muted py-4">
+                                No lessons added yet.
+                            </div>
                         @endforelse
+                    
 
 
                     </ol>
 
-             
+
                 </div>
             </div>
 
-        
+
             <div class="col-lg-5">
-            
-                <form action="{{ route('admin-course-lesson-create',$course->id) }}" class="card shadow-sm" method="POST">
+
+                <form action="{{ route('admin-course-lesson-create', $course->id) }}" class="card shadow-sm"
+                    method="POST">
                     @csrf
                     <div class="card-header bg-white fw-semibold">Add lesson</div>
                     <div class="card-body row g-3">

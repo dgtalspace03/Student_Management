@@ -23,7 +23,7 @@ class Course extends Model
         return $this->belongsTo(Categories::class,'category_id');
     }
     public function lessons():HasMany{
-        return $this->hasMany(Lesson::class,'course_id');
+        return $this->hasMany(Lesson::class,'course_id')->orderBy('position', 'asc');
     }
     public function all_assigned_course():HasMany{
         return $this->hasMany(CourseTeacherAssignment::class,'course_id');
