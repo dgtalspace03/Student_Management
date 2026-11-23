@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\admin;
 use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\Status;
 use App\Http\Middleware\Student;
 use App\Http\Middleware\teacher;
 use Illuminate\Foundation\Application;
@@ -21,7 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'setLocale'=>SetLanguage::class,
             'admin' => admin::class,
             'teacher'=>teacher::class,
-            'student' => Student::class
+            'student' => Student::class,
+            'status' => Status::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -27,17 +27,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
-        View::composer('*', function ($view) {
-            logger('Rendered view: ' . $view->getName());
-        });
-        // View::composer('layouts.admin', function ($view) {
-        //     dd($view->getName());
-        //     $student_role = Roles::where('slug', 'student')->firstOrFail();
-
-        //     $total_student = User::where('role_id', $student_role->id)->count();
-
-        //     $view->with('total_student', $total_student);
+        // View::composer('*', function ($view) {
+        //     logger('Rendered view: ' . $view->getName());
         // });
+        View::composer('*::admin', function ($view) {
+           
+            $student_role = Roles::where('slug', 'student')->firstOrFail();
+
+            $total_student = User::where('role_id', $student_role->id)->count();
+
+            $view->with('total_student', $total_student);
+        });
     }
 
     /**

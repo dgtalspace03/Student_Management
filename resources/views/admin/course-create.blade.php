@@ -98,7 +98,7 @@
             </div>
             <div class="card-footer bg-white d-flex gap-2">
                 <button type="submit" class="btn btn-success">Add course</button>
-                <a href="admin-courses-ui.html" class="btn btn-outline-secondary">Cancel</a>
+                <a href="{{ route('admin-course') }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </form>
 

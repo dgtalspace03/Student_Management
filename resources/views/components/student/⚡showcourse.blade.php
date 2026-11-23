@@ -5,8 +5,7 @@ use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
 use App\Models\Categories;
 use App\Models\Course;
-new class extends Component
-{
+new class extends Component {
     public string $search = '';
 
     public string $category_id = '';
@@ -14,22 +13,15 @@ new class extends Component
     #[Computed]
     public function categories()
     {
-        $category= Categories::all();
-        
+        $category = Categories::all();
+
         return $category;
     }
 
     #[Computed]
     public function courses()
     {
-        $all_course=Course::query()
-                            ->when($this->category_id,fn($q) => $q->where('category_id',$this->category_id ) )
-                            ->when($this->search,fn($q) => 
-                                    $q->where(fn($sub) => $sub
-                                    ->where('title','like',"%$this->search%")
-                                   ->orWhere('description','like',"%$this->search%")
-                                    ))
-                                    ->get();
+        $all_course = Course::query()->when($this->category_id, fn($q) => $q->where('category_id', $this->category_id))->when($this->search, fn($q) => $q->where(fn($sub) => $sub->where('title', 'like', "%$this->search%")->orWhere('description', 'like', "%$this->search%")))->get();
         return $all_course;
     }
 };
@@ -43,8 +35,8 @@ new class extends Component
 
             <select class="form-control" wire:model.live="category_id">
                 <option value="">All</option>
-                @foreach ($this->categories as $cat)
-                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                @foreach ($this->categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
         </div>

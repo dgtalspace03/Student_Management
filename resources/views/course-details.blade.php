@@ -60,20 +60,20 @@
                         <!-- Teacher -->
                         <div>
                             <h2 class="h3 mt-2">Teachers</h2>
-                            @forelse ($course->all_assigned_course as $assaign)
+                            @forelse ($course->teachers as $teacher)
                                 <div class="d-flex align-items-center mt-3 gap-2">
                                     <img style="height: 48px; width: 48px;" class=" rounded-circle object-cover"
-                                        src="{{ $assaign->teacher->profile_photo_url }}"
-                                        alt="{{ $assaign->teacher->name }}" />
+                                        src="{{ $teacher->profile_photo_url }}"
+                                        alt="{{ $teacher->name }}" />
                                     <div>
-                                        <div class="fw-semibold">{{ $assaign->teacher->name }}</div>
-                                        <small class="text-muted">{{ $assaign->teacher->email }}</small>
+                                        <div class="fw-semibold">{{ $teacher->name }}</div>
+                                        <small class="text-muted">{{ $teacher->email }}</small>
                                     </div>
                                 </div>
+                            @empty
+                                <p class="text-center">No Teacher Has been assigned to the course.</p>
+                            @endforelse
                         </div>
-                    @empty
-                        <p class="text-center">No Teacher Has been assigned to the course.</p>
-                        @endforelse
 
                     </div>
                 </div>

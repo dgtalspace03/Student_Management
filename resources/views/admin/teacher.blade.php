@@ -26,26 +26,27 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
-                                        <img style="height: 40px; width: 40px;" class=" rounded-circle object-cover" src="{{$teacher->profile_photo_url }}" alt="{{ $teacher->name }}" />
-                                        
-                                        <span>{{$teacher->name}}</span>
+                                        <img style="height: 40px; width: 40px;" class=" rounded-circle object-cover"
+                                            src="{{ $teacher->profile_photo_url }}" alt="{{ $teacher->name }}" />
+
+                                        <span>{{ $teacher->name }}</span>
                                     </div>
                                 </td>
-                                <td>{{$teacher->email}}</td>
-                                <td>{{$teacher->created_at->format('d M Y')}}</td>
+                                <td>{{ $teacher->email }}</td>
+                                <td>{{ $teacher->created_at->format('d M Y') }}</td>
                                 <td class="text-end">
-                                    <form action="{{ route('admin-teacher-delete',$teacher->id) }}" method="POST">
+                                    <form action="{{ route('admin-teacher-delete', $teacher->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
 
 
                                     </form>
                                 </td>
                             </tr>
                         @empty
-                        <div>
-                            No Teacher Found.
-                        </div>
+                            <div>
+                                No Teacher Found.
+                            </div>
                         @endforelse
                     </tbody>
                 </table>

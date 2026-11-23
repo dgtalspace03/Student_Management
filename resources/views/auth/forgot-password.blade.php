@@ -1,9 +1,7 @@
 <x-guest-layout>
-   
 
-    @session('status')
-        <div class="mb-4 fw-semibold text-sm text-green-600">{{ $value }}</div>
-    @endsession
+
+
 
     <main class="px-3 py-5 d-flex align-items-center justify-content-center w-100">
         <form class="p-4 p-md-5 w-100" style="max-width: 480px;" method="POST" action="{{ route('password.email') }}">
@@ -19,9 +17,12 @@
             <div class="mb-4">
                 <label for="email" class="form-label fw-semibold">{{ __('Email Address') }}</label>
                 <input id="email" type="email"
-                    class="form-control form-control-lg @error('email') is-invalid @enderror"
-                    name="email" value="{{ old('email') }}" placeholder="Enter your email"
-                    required autofocus autocomplete="username">
+                    class="form-control form-control-lg @error('email') is-invalid @enderror" name="email"
+                    value="{{ old('email') }}" placeholder="Enter your email" required autofocus
+                    autocomplete="username">
+                @session('status')
+                    <div class="mb-4 fw-semibold text-sm text-green">{{ $value }}</div>
+                @endsession
                 @error('email')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror

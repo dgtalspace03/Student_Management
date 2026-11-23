@@ -13,19 +13,19 @@
             <div class="col">
                 <div class="stat-card">
                     <div class="stat-label">Total Student</div>
-                    <div class="stat-number">10</div>
+                    <div class="stat-number">{{ $total_student }}</div>
                 </div>
             </div>
             <div class="col">
                 <div class="stat-card">
                     <div class="stat-label">Total Teacher</div>
-                    <div class="stat-number">25</div>
+                    <div class="stat-number">{{total_teacher()}}</div>
                 </div>
             </div>
             <div class="col">
                 <div class="stat-card">
                     <div class="stat-label">Total Course</div>
-                    <div class="stat-number text-danger">532</div>
+                    <div class="stat-number">{{ total_course() }}</div>
                 </div>
             </div>
             <div class="col">
@@ -47,8 +47,8 @@
                     href="{{ route('admin-teacher') }}">Teacher</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}" href="/">♙ Members
-                    &amp; roles</a>
+                <a class="nav-link {{ request()->routeIs('admin-student*') ? 'active' : '' }}" href="{{ route('admin-student') }}">
+                    Students</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin-categories*') ? 'active' : '' }}" href="{{ route('admin-categories') }}">
@@ -57,9 +57,4 @@
         </ul>
         {{ $slot }}
     </div>
-
-
-
-
-
 </x-layouts::app>

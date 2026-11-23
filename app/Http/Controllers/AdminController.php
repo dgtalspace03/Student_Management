@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Jetstream\DeleteUser;
+use App\Enum\UserStatus;
 use App\Mail\NewCourse;
 use App\Mail\NewUser;
 use App\Models\Categories;
@@ -222,6 +223,23 @@ class AdminController extends Controller
         } catch (\Throwable $th) {
             return redirect(route('admin-teacher'))->with('error', "Failed to Delete Teacher");
         }
+    }
+
+    public function ShowStudent(){
+        $st_role=Roles::where('slug','student')->firstOrFail();
+        $students=User::where('role_id',$st_role->id)->get();
+
+        return view('admin.student',compact('students'));
+    }
+    public function Toggle_Student_Status($id){
+        $student=User::findOrFail($id);
+        if($student->status===UserStatus::ACTIVATED){
+            $student->status=UserStatus::DEACTIVATED;
+        }else{
+            $student->status=UserStatus::ACTIVATED;
+        }
+        $student->save();
+        return redirect()->back()->with('success','Successfully changed student status');
     }
     public function CourseLesson($slug)
     {

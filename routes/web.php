@@ -1,8 +1,10 @@
 <?php
 
+use App\Enum\UserStatus;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -13,7 +15,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
     'setLocale',
-    'student'
+    'student',
+    'status'
 ])->controller(StudentController::class)
     ->group(function () {
         Route::view('/', 'index')->name('home');
@@ -27,7 +30,8 @@ Route::prefix('admin')
         config('jetstream.auth_session'),
         'verified',
         'setLocale',
-        'admin'
+        'admin',
+        'status'
     ])
     ->controller(AdminController::class)
     ->group(function () {
@@ -53,6 +57,9 @@ Route::prefix('admin')
         Route::view('/teacher/create', 'admin.create-teacher')->name('admin-teacher-create');
         Route::post('/teacher/create', 'CreateTeacher')->name('admin-teacher-create-post');
         Route::post('/teacher/{id}/delete', 'DeleteTeacher')->name('admin-teacher-delete');
+
+        Route::get('/student','ShowStudent')->name('admin-student');
+        Route::post('/student/{id}/status-toggle','Toggle_Student_Status')->name('admin-student-toggle_status');
         Route::get('/categories', 'ShowCategories')->name('admin-categories');
         Route::post('/categories/create', 'CreateCategories')->name('admin-categories-create');
         Route::post('/categories/delete/{id}', 'DeleteCategories')->name('admin-categories-delete');
@@ -76,3 +83,11 @@ Route::post('/lang/{la}', function ($la) {
     }
     return redirect()->back();
 })->name('setLanguage');
+
+
+Route::get('/suspend',function(){
+    $user=Auth::user();
+
+    if($user->status==UserStatus::ACTIVATED) return redirect('/');
+    return view('suspend');
+});

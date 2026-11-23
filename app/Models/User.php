@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enum\UserStatus;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,11 +32,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'status'
     ];
 
     /**
@@ -41,6 +46,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -67,13 +73,14 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => UserStatus::class,
         ];
     }
     public function role():BelongsTo
     {
         return $this->belongsTo(Roles::class,'role_id');
     }
-    public function all_assigned_course():HasMany{
-        return $this->hasMany(CourseTeacherAssignment::class,'teacher_id');
+    public function courses():BelongsToMany{
+        return $this->belongsToMany(Course::class,'course_teacher_assignments','teacher_id','course_id');
     }
 }

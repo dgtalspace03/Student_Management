@@ -21,20 +21,20 @@
                     <div class="card-header bg-white fw-semibold">Assigned teachers</div>
                     <ul class="list-group list-group-flush">
 
-                        @forelse ($course->all_assigned_course as $assign)
+                        @forelse ($course->teachers as $teacher)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center gap-3">
                                     <img style="height: 40px; width: 40px;" class=" rounded-circle object-cover"
-                                        src="{{ $assign->teacher->profile_photo_url }}"
-                                        alt="{{ $assign->teacher->name }}" />
+                                        src="{{ $teacher->profile_photo_url }}"
+                                        alt="{{ $teacher->name }}" />
 
                                     <div>
-                                        <div>{{ $assign->teacher->name }}</div>
-                                        <small class="text-muted">{{ $assign->teacher->email }}</small>
+                                        <div>{{ $teacher->name }}</div>
+                                        <small class="text-muted">{{ $teacher->email }}</small>
                                     </div>
                                 </div>
                                 <form
-                                    action="{{ route('admin-course-teacher-remove', [$assign->course_id, $assign->teacher_id]) }}"
+                                    action="{{ route('admin-course-teacher-remove', [$course->id, $teacher->id]) }}"
                                     method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
