@@ -159,7 +159,7 @@ class AdminController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
         $teacher_role = Roles::where('slug', 'teacher')->firstOrFail();
-        $unassigned_teacher = User::where('role_id', $teacher_role->id)->whereDoesntHave('all_assigned_course', function ($q) use ($course) {
+        $unassigned_teacher = User::where('role_id', $teacher_role->id)->whereDoesntHave('courses', function ($q) use ($course) {
             $q->where('course_id', $course->id);
         })->get();
 

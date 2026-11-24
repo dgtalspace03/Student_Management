@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'student' => Student::class,
             'status' => Status::class
         ]);
+       
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

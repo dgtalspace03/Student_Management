@@ -2,6 +2,8 @@
 
 use App\Enum\UserStatus;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
@@ -58,8 +60,8 @@ Route::prefix('admin')
         Route::post('/teacher/create', 'CreateTeacher')->name('admin-teacher-create-post');
         Route::post('/teacher/{id}/delete', 'DeleteTeacher')->name('admin-teacher-delete');
 
-        Route::get('/student','ShowStudent')->name('admin-student');
-        Route::post('/student/{id}/status-toggle','Toggle_Student_Status')->name('admin-student-toggle_status');
+        Route::get('/student', 'ShowStudent')->name('admin-student');
+        Route::post('/student/{id}/status-toggle', 'Toggle_Student_Status')->name('admin-student-toggle_status');
         Route::get('/categories', 'ShowCategories')->name('admin-categories');
         Route::post('/categories/create', 'CreateCategories')->name('admin-categories-create');
         Route::post('/categories/delete/{id}', 'DeleteCategories')->name('admin-categories-delete');
@@ -85,9 +87,29 @@ Route::post('/lang/{la}', function ($la) {
 })->name('setLanguage');
 
 
-Route::get('/suspend',function(){
-    $user=Auth::user();
+Route::get('/suspend', function () {
+    $user = Auth::user();
 
-    if($user->status==UserStatus::ACTIVATED) return redirect('/');
+    if ($user->status == UserStatus::ACTIVATED) return redirect('/');
     return view('suspend');
 });
+Route::prefix('payment')->controller(PaymentController::class)->group(function () {
+        Route::get('/checkout', [
+            PaymentController::class,
+            'Checkout'
+        ])->name('payment.checkout');
+
+        Route::get('/success', [
+            PaymentController::class,
+            'success'
+        ])->name('payment.success');
+
+        Route::get('/cancel', [
+            PaymentController::class,
+            'cancel'
+        ])->name('payment.cancel');
+    });
+Route::post('/stripe/webhook', [
+    StripeWebhookController::class,
+    'handle'
+]);

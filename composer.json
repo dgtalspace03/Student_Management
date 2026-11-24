@@ -16,7 +16,8 @@
         "laravel/tinker": "^3.0",
         "laravel/ui": "^4.6",
         "livewire/blaze": "^1.0",
-        "livewire/livewire": "^4.4"
+        "livewire/livewire": "^4.4",
+        "stripe/stripe-php": "^23.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
@@ -110,6 +111,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "platform": {
         }
     },
     "minimum-stability": "stable",

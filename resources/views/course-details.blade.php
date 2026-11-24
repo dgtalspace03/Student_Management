@@ -31,7 +31,7 @@
 
             <!-- Right: price, enrolled, teacher -->
             <div class="col-lg-4">
-                <div class="card shadow-sm sticky-lg-top" style="top: 1rem;">
+                <div class="card shadow-sm sticky-lg-top" style="top: 1rem; z-index: 0;">
                     <div class="card-body">
                         <h2 class="fw-bold text-primary mb-0">${{ $course->price }}<small
                                 class="text-muted text-decoration-line-through fs-6">${{ $course->original_price }}</small>
