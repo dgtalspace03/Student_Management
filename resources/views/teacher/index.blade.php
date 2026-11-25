@@ -23,7 +23,7 @@
                           {{ $course->description }}
                         </p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <small class="text-muted">8,250 students</small>
+                            <small class="text-muted">{{ $course->students->count() }} students</small>
                             <a href="{{ route('teacher-course-details', $course->slug) }}" class="btn btn-sm btn-primary">View
                                 details</a>
                         </div>

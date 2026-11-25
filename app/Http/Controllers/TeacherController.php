@@ -18,10 +18,7 @@ class TeacherController extends Controller
     public function ShowCourseDetails($slug)
     {
         $course = Course::where('slug', $slug)->firstOrFail();
-        $assigned_course=CourseTeacherAssignment::where([
-            'course_id'=>$course->id,
-            'teacher_id'=>Auth::id()
-        ])->firstOrFail();
+        
         
 
         $duration = Lesson::where('course_id', $course->id)->sum('duration');

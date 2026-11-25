@@ -31,7 +31,7 @@
             <div class="col">
                 <div class="stat-card">
                     <div class="stat-label">Total Enrollment</div>
-                    <div class="stat-number">5</div>
+                    <div class="stat-number">{{ total_enrollment() }}</div>
                 </div>
             </div>
         </div>
@@ -53,6 +53,14 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin-categories*') ? 'active' : '' }}" href="{{ route('admin-categories') }}">
                      Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin-order*') ? 'active' : '' }}" href="{{ route('admin-order') }}">
+                     Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin-enrollment*') ? 'active' : '' }}" href="{{ route('admin-enrollment') }}">
+                     Enrollments</a>
             </li>
         </ul>
         {{ $slot }}

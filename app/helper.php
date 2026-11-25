@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\Roles;
 use App\Models\User;
 
@@ -16,5 +17,8 @@ use App\Models\User;
  }
  function total_course(){
     return Course::count();
+ }
+ function total_enrollment(){
+    return Enrollment::count();
  }
 ?>

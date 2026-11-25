@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Jetstream\DeleteUser;
+use App\Enum\OrderStatus;
 use App\Enum\UserStatus;
 use App\Mail\NewCourse;
 use App\Mail\NewUser;
 use App\Models\Categories;
 use App\Models\Course;
 use App\Models\CourseTeacherAssignment;
+use App\Models\Enrollment;
 use App\Models\Lesson;
+use App\Models\Order;
 use App\Models\Roles;
 use App\Models\User;
 
@@ -358,5 +361,17 @@ class AdminController extends Controller
         }
         $category->delete();
         return redirect()->back()->with('success', "Category Deleted Successfully/");
+    }
+
+    public function ShowOrder(){
+        $orders=Order::orderBy('created_at','desc')->get();
+        $total_revenue=Order::where('status',OrderStatus::Paid)->sum('amount');
+        $statuses=OrderStatus::cases();
+        return view('admin.orders',compact('orders','total_revenue','statuses'));
+    }
+
+    public function ShowEnrollment(){
+        $enrollments=Enrollment::orderBy('created_at','desc')->get();
+        return view('admin.enrollments',compact('enrollments'));
     }
 }

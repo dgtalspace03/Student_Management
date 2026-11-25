@@ -36,11 +36,19 @@
                         <h2 class="fw-bold text-primary mb-0">${{ $course->price }}<small
                                 class="text-muted text-decoration-line-through fs-6">${{ $course->original_price }}</small>
                         </h2>
-                        <button class="btn btn-primary w-100 my-3">Enroll now</button>
+                       @if ($student_enrolled)
+                           <button disabled class="btn btn-secondary w-100 my-3">Already Enrolled</button>
+                       @else
+                           <form action="{{ route('payment.checkout',$course->id) }}" method="POST">
+                        @csrf
+                         <button type="submit" class="btn btn-primary w-100 my-3">Enroll now</button>
+                       </form>
+                       @endif
+
 
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex justify-content-between py-2 border-bottom">
-                                <span class="text-muted">Students enrolled</span><strong>{{ 0 }}</strong>
+                                <span class="text-muted">Students enrolled</span><strong>{{$course->students->count()}}</strong>
                             </li>
                             <li class="d-flex justify-content-between py-2 border-bottom">
                                 <span class="text-muted">Duration</span><strong>

@@ -65,6 +65,10 @@ Route::prefix('admin')
         Route::get('/categories', 'ShowCategories')->name('admin-categories');
         Route::post('/categories/create', 'CreateCategories')->name('admin-categories-create');
         Route::post('/categories/delete/{id}', 'DeleteCategories')->name('admin-categories-delete');
+
+        Route::get('/orders','ShowOrder')->name('admin-order');
+
+        Route::get('/enrollments','ShowEnrollment')->name('admin-enrollment');
     });
 Route::prefix('teacher')
     ->middleware([
@@ -94,7 +98,7 @@ Route::get('/suspend', function () {
     return view('suspend');
 });
 Route::prefix('payment')->controller(PaymentController::class)->group(function () {
-        Route::get('/checkout', [
+        Route::post('/checkout/{course_id}', [
             PaymentController::class,
             'Checkout'
         ])->name('payment.checkout');

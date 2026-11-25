@@ -15,7 +15,7 @@
                   <h2 class="h2">{{ auth()->user()->role->name }}</h2>
                 </div>
             </div>
-
+            
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
@@ -32,7 +32,7 @@
                                     </button>
                                 </span>
                             </x-slot>
-
+                            
                             <x-slot name="content">
                                 <div class="w-60 z-3">
                                     <!-- Team Management -->
@@ -66,6 +66,7 @@
                                 </div>
                             </x-slot>
                         </x-dropdown>
+                        
                     </div>
                 @endif
 
@@ -120,8 +121,8 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
+                <x-lang-btn />
             </div>
-
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -133,7 +134,7 @@
             </div>
         </div>
     </div>
-
+     
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
      
