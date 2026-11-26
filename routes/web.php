@@ -22,8 +22,9 @@ Route::middleware([
 ])->controller(StudentController::class)
     ->group(function () {
         Route::view('/', 'index')->name('home');
-
+        Route::view('/my-courses','my-courses')->name('my-courses');
         Route::get('/course/{slug}', 'CourseDetails')->name('course-details');
+        Route::view('/my-orders','my-order')->name('my-order');
     });
 
 Route::prefix('admin')
@@ -62,13 +63,13 @@ Route::prefix('admin')
 
         Route::get('/student', 'ShowStudent')->name('admin-student');
         Route::post('/student/{id}/status-toggle', 'Toggle_Student_Status')->name('admin-student-toggle_status');
-        Route::get('/categories', 'ShowCategories')->name('admin-categories');
+        Route::view('/categories', 'admin.categories')->name('admin-categories');
         Route::post('/categories/create', 'CreateCategories')->name('admin-categories-create');
         Route::post('/categories/delete/{id}', 'DeleteCategories')->name('admin-categories-delete');
 
-        Route::get('/orders','ShowOrder')->name('admin-order');
+        Route::view('/orders','admin.orders')->name('admin-order');
 
-        Route::get('/enrollments','ShowEnrollment')->name('admin-enrollment');
+        Route::view('/enrollments','admin.enrollments')->name('admin-enrollment');
     });
 Route::prefix('teacher')
     ->middleware([

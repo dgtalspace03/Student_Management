@@ -6,6 +6,7 @@
     'category' => 'General',
     'price' => 0,
     'enrolled' => 0,
+    'isMyCourse'=>false
 ])
 
 <div class="card h-100 shadow-sm" style="width: 15rem;">
@@ -30,7 +31,11 @@
         {{-- Price + button pinned to the bottom --}}
         <div class="mt-auto d-flex justify-content-between align-items-center">
             <span class="fs-5 fw-bold {{ $price > 0 ? 'text-dark' : 'text-success' }}">
+                @if($isMyCourse)
+                Enrolled
+                @else
                 {{ $price > 0 ? '$' . number_format($price, 2) : 'Free' }}
+                @endif
             </span>
             <a href="{{ route('course-details',$slug) }}" class="btn btn-primary btn-sm">View Details</a>
         </div>

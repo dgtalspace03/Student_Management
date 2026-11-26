@@ -11,51 +11,7 @@
         <div class="row g-4">
 
             <!-- Category list -->
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white d-flex justify-content-between align-items-center gap-2">
-                        <span class="fw-semibold">All categories <span class="text-muted fw-normal">(10)</span></span>
-                        <input type="text" class="form-control form-control-sm" style="max-width:200px;"
-                            placeholder="Search category">
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Used by</th>
-                                    <th class="text-end">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($all_categories as $category)
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td class="text-muted">{{ $category->slug }}</td>
-                                        <td><span class="badge text-bg-secondary">{{ count($category->courses) }} courses</span></td>
-                                        <td class="text-end d-flex align-items-center justify-content-end gap-2">
-                                            
-                                            <form action="{{ route('admin-categories-delete',$category->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Empty state: show this when there are no categories -->
-                    <!--
-        <div class="card-body text-center text-muted py-4">No categories yet.</div>
-        -->
-                </div>
-            </div>
+            <livewire:admin.category />
 
             <!-- Add category -->
             <div class="col-lg-4">

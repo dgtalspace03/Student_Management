@@ -322,11 +322,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to delete lesson');
         }
     }
-    public function ShowCategories()
-    {
-        $all_categories = Categories::all();
-        return view('admin.categories', compact('all_categories'));
-    }
+  
     public function CreateCategories(Request $request)
 
     {
@@ -363,15 +359,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Category Deleted Successfully/");
     }
 
-    public function ShowOrder(){
-        $orders=Order::orderBy('created_at','desc')->get();
-        $total_revenue=Order::where('status',OrderStatus::Paid)->sum('amount');
-        $statuses=OrderStatus::cases();
-        return view('admin.orders',compact('orders','total_revenue','statuses'));
-    }
+   
 
-    public function ShowEnrollment(){
-        $enrollments=Enrollment::orderBy('created_at','desc')->get();
-        return view('admin.enrollments',compact('enrollments'));
-    }
+    
 }
