@@ -5,8 +5,8 @@
             <h2 class="h2 mb-0">Manage Student</h2>
             
         </div>
-
-        <div class="card shadow-sm">
+        <livewire:admin.users target="student"/>
+        {{-- <div class="card shadow-sm">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
@@ -50,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </x-layouts::admin>

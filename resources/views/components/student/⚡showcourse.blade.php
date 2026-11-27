@@ -56,7 +56,7 @@ new class extends Component {
         ->when($this->category_id, fn($q) => $q->where('category_id', $this->category_id))
         ->when($this->search, fn($q) => $q->where(fn($sub) => $sub->where('title', 'like', "%$this->search%")
         ->orWhere('description', 'like', "%$this->search%")))
-        ->paginate(2);
+        ->paginate(10);
     }
 };
 ?>

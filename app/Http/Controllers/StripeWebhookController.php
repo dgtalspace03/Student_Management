@@ -73,6 +73,7 @@ class StripeWebhookController extends Controller
             ]);
 
             Log::info('Order updated to paid', ['id' => $order->id]);
+            Log::info('Order Invoice', ['id' => $session->invoice]);
 
             Enrollment::firstOrCreate(
                 [
@@ -83,7 +84,7 @@ class StripeWebhookController extends Controller
             );
         });
     }
-    private function handleExpired($session): void
+    private function handleExpired(Session $session): void
 {
     Order::where('stripe_session_id', $session->id)
         ->where('status', OrderStatus::Pending)

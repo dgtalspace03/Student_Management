@@ -50,7 +50,7 @@ new class extends Component
         <div class="row g-2 mb-3 ">
             <div class="col-md-8">
                 <input type="text" name="search" wire:model.live.debounce.300ms="search"
-                       class="form-control" placeholder="Search student name or email">
+                       class="form-control" placeholder="Search student name , email or course">
             </div>
             <div class="col-md-3">
                 <select name="course_id" class="form-select" wire:model.live="course_id">

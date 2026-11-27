@@ -203,12 +203,7 @@ class AdminController extends Controller
         $assigned_record->delete();
         return redirect()->back();
     }
-    public function ShowTeacher()
-    {
-        $teacher_role = Roles::where('slug', 'teacher')->firstOrFail();
-        $all_teachers = User::where('role_id', $teacher_role->id)->get();
-        return view('admin.teacher', compact('all_teachers'));
-    }
+  
     public function CreateTeacher(Request $request, CreateNewUser $create_new_user)
     {
         $teacher = $create_new_user->create($request->all(), 'teacher');
@@ -228,12 +223,7 @@ class AdminController extends Controller
         }
     }
 
-    public function ShowStudent(){
-        $st_role=Roles::where('slug','student')->firstOrFail();
-        $students=User::where('role_id',$st_role->id)->get();
 
-        return view('admin.student',compact('students'));
-    }
     public function Toggle_Student_Status($id){
         $student=User::findOrFail($id);
         if($student->status===UserStatus::ACTIVATED){

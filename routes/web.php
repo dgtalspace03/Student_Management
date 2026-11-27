@@ -56,12 +56,12 @@ Route::prefix('admin')
         Route::post('/course/{course_id}/lesson/{id}/down', 'DownLesson')->name("admin-course-lesson-down");
         Route::post('/course/lesson/{id}/delete', 'DeleteLesson')->name("admin-course-lesson-delete");
 
-        Route::get('/teacher', 'ShowTeacher')->name('admin-teacher');
+        Route::view('/teacher', 'admin.teacher')->name('admin-teacher');
         Route::view('/teacher/create', 'admin.create-teacher')->name('admin-teacher-create');
         Route::post('/teacher/create', 'CreateTeacher')->name('admin-teacher-create-post');
         Route::post('/teacher/{id}/delete', 'DeleteTeacher')->name('admin-teacher-delete');
 
-        Route::get('/student', 'ShowStudent')->name('admin-student');
+        Route::view('/student', 'admin.student')->name('admin-student');
         Route::post('/student/{id}/status-toggle', 'Toggle_Student_Status')->name('admin-student-toggle_status');
         Route::view('/categories', 'admin.categories')->name('admin-categories');
         Route::post('/categories/create', 'CreateCategories')->name('admin-categories-create');

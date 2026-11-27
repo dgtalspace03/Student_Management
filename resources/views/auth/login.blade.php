@@ -8,13 +8,15 @@
                 {{ $value }}
             </div>
         @endsession
-        <main class="px-3 py-5 d-flex align-items-center justify-content-center w-100">
-         <form class=" p-4 p-md-5 " method="POST" action="{{ route('login') }}">
+        <main class="px-3 py-5 d-flex flex-column align-items-center justify-content-center w-100">
+             
+            <x-lang-btn />
+         <form class=" p-2 p-md-3 " method="POST" action="{{ route('login') }}">
         @csrf
-
         <div class="mb-4 h1 text-xl-start fw-bold">
-            Student Manager
-        </div>
+            Student Manager 
+        </div>  
+
 
         <h1 class="h2 fw-bold">{{ __('Welcome back') }}</h1>
         <p class="text-secondary mb-4">

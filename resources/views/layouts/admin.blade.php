@@ -13,7 +13,7 @@
             <div class="col">
                 <div class="stat-card">
                     <div class="stat-label">Total Student</div>
-                    <div class="stat-number">{{ $total_student }}</div>
+                    <div class="stat-number">{{ total_student() }}</div>
                 </div>
             </div>
             <div class="col">
@@ -30,8 +30,8 @@
             </div>
             <div class="col">
                 <div class="stat-card">
-                    <div class="stat-label">Total Enrollment</div>
-                    <div class="stat-number">{{ total_enrollment() }}</div>
+                    <div class="stat-label">Total Revenue</div>
+                    <div class="stat-number">{{ total_revenue()/100 }}$</div>
                 </div>
             </div>
         </div>
